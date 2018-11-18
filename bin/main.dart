@@ -1,5 +1,6 @@
-import 'package:untitled/untitled.dart' as untitled;
+import 'core.dart';
 
-main(List<String> arguments) {
-  print('Hello world: ${untitled.calculate()}!');
+main() {
+  Core core = new Core();
+  core.init();
 }
