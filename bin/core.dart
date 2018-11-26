@@ -1,29 +1,28 @@
 import 'dart:io';
+import 'config.dart';
+import 'database_adapter.dart';
+import '../database_adapters/MysqlAdapter.dart';
 
 class Core {
 
-  final HOST = InternetAddress.loopbackIPv4;
-  final PORT = 8080;
+	HttpRequest request;
+	static DatabaseAdapter database;
 
-  void init() async {
-    var server = await HttpServer.bind(HOST, PORT);
+	Core(this.request);
 
-    print('Listening on localhost:${server.port}');
-
-    await for (HttpRequest request in server) {
-      switch (request.method) {
-        case 'GET':
-          handleGetRequest(request);
-          break;
-        case 'POST':
-          break;
-      }
-    }
+  void init() {
+		this.startDatabase();
+		this.dispatchRequest();
   }
 
-  void handleGetRequest(HttpRequest req) {
-    HttpResponse res = req.response;
-    res.write('Received request ${req.method}: ${req.uri.path}');
-    res.close();
-  }
+  void startDatabase() {
+		Core.database = new MysqlAdapter(config['database']);
+	}
+
+	void dispatchRequest(){
+  	// hier op basis van de config checken of een endpoint is aangeroepen die bestaat
+		// Als endpoint gevonden is, instance van creeren met juiste model en request aan doorgeven
+
+	}
+
 }

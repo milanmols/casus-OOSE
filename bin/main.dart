@@ -1,6 +1,6 @@
-import 'core.dart';
+import 'server.dart';
 
 main() {
-  Core core = new Core();
-  core.init();
+  Server server = new Server();
+	server.start();
 }
